@@ -1,0 +1,83 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------< com.academia:cuenta-bancaria-mockito >----------------
+[INFO] Building cuenta-bancaria-mockito 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cuenta-bancaria-mockito ---
+[INFO] skip non existing resourceDirectory /home/marti/cuenta-bancaria-mockito/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ cuenta-bancaria-mockito ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cuenta-bancaria-mockito ---
+[INFO] skip non existing resourceDirectory /home/marti/cuenta-bancaria-mockito/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ cuenta-bancaria-mockito ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ cuenta-bancaria-mockito ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] +--MP-1 · Cajero con dobles hechos a mano - 0.073 s
+[INFO] |  +-- [OK] un retiro baja el saldo, guarda la cuenta y manda un SMS - 0.047 s
+[INFO] |  '-- [OK] una cuenta que no existe se rechaza y no manda SMS - 0.004 s
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+[INFO] +--MP-2 · Stubs: el mock responde lo que tú decides - 0.797 s
+[INFO] |  +-- [OK] una operación sospechosa se rechaza y la cuenta no cambia - 0.744 s
+[INFO] |  +-- [OK] pasar el límite diario se rechaza y la cuenta no cambia - 0.012 s
+[INFO] |  +-- [OK] si el repositorio no la encuentra, CuentaNoEncontradaException - 0.005 s
+[INFO] |  +-- [OK] un mock sin configurar devuelve «vacío»: Optional.empty - 0.002 s
+[INFO] |  +-- [OK] consultar el saldo devuelve el de la cuenta que da el repositorio - 0.003 s
+[INFO] |  +-- [OK] si el repositorio no responde, su excepción sale tal cual - 0.005 s
+[INFO] |  '-- [XX] un retiro normal baja el saldo - 0.010 s
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Errors: 
+[ERROR]   StubsTest.retiroNormal:89 » NullPointer Cannot invoke "java.math.BigDecimal.add(java.math.BigDecimal)" because "yaRetirado" is null
+[INFO] 
+[ERROR] Tests run: 9, Failures: 0, Errors: 1, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.157 s
+[INFO] Finished at: 2026-10-01T13:13:46-06:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.6:test (default-test) on project cuenta-bancaria-mockito: 
+[ERROR] 
+[ERROR] See /home/marti/cuenta-bancaria-mockito/target/surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+
+===== DETALLE de cada clase con fallas (target/surefire-reports) =====
+-------------------------------------------------------------------------------
+Test set: com.academia.banco.StubsTest
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.797 s <<< FAILURE! -- in com.academia.banco.StubsTest
+com.academia.banco.StubsTest.sospechosa -- Time elapsed: 0.744 s
+com.academia.banco.StubsTest.limiteDiario -- Time elapsed: 0.012 s
+com.academia.banco.StubsTest.cuentaInexistente -- Time elapsed: 0.005 s
+com.academia.banco.StubsTest.sinConfigurar -- Time elapsed: 0.002 s
+com.academia.banco.StubsTest.consultarSaldo -- Time elapsed: 0.003 s
+com.academia.banco.StubsTest.repositorioCaido -- Time elapsed: 0.005 s
+com.academia.banco.StubsTest.retiroNormal -- Time elapsed: 0.010 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.math.BigDecimal.add(java.math.BigDecimal)" because "yaRetirado" is null
+	at com.academia.banco.CajeroAutomatico.validarLimiteDiario(CajeroAutomatico.java:76)
+	at com.academia.banco.CajeroAutomatico.retirar(CajeroAutomatico.java:50)
+	at com.academia.banco.StubsTest.retiroNormal(StubsTest.java:89)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
