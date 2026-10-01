@@ -1,0 +1,106 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------< com.academia:cuenta-bancaria-mockito >----------------
+[INFO] Building cuenta-bancaria-mockito 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ cuenta-bancaria-mockito ---
+[INFO] skip non existing resourceDirectory /home/marti/cuenta-bancaria-mockito/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ cuenta-bancaria-mockito ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ cuenta-bancaria-mockito ---
+[INFO] skip non existing resourceDirectory /home/marti/cuenta-bancaria-mockito/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ cuenta-bancaria-mockito ---
+[INFO] Recompiling the module because of added or removed source files.
+[INFO] Compiling 8 source files with javac [debug release 17] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ cuenta-bancaria-mockito ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+[INFO] +--MP-5 · Quejas sobre el cajero (cada una reproducida con una prueba) - 0.907 s
+[INFO] |  +-- [OK] Queja 2: si la operación es sospechosa, el dinero no sale de la cuenta - 0.842 s
+[INFO] |  +-- [OK] Queja 3: cada retiro se guarda UNA sola vez - 0.014 s
+[INFO] |  +-- [OK] Queja 4: si el antifraude no responde, el retiro se rechaza - 0.005 s
+[INFO] |  +-- [OK] Queja 5: se pueden retirar justo los $8,000.00 del día - 0.008 s
+[INFO] |  '-- [OK] Queja 1: no llega SMS de un retiro que se rechazó por falta de saldo - 0.004 s
+[INFO] +--MP-6 · El límite diario con un reloj fijo (Clock.fixed, no un mock) - 0.027 s
+[INFO] |  '-- [XX] el límite usa lo retirado en la fecha del reloj del cajero - 0.021 s
+[INFO] +--MP-1 · Cajero con dobles hechos a mano - 0.017 s
+[INFO] |  +-- [OK] un retiro baja el saldo, guarda la cuenta y manda un SMS - 0.006 s
+[INFO] |  '-- [OK] una cuenta que no existe se rechaza y no manda SMS - 0.005 s
+[INFO] +--MP-2 · Stubs: el mock responde lo que tú decides - 0.040 s
+[INFO] |  +-- [OK] una operación sospechosa se rechaza y la cuenta no cambia - 0.004 s
+[INFO] |  +-- [OK] pasar el límite diario se rechaza y la cuenta no cambia - 0.011 s
+[INFO] |  +-- [OK] si el repositorio no la encuentra, CuentaNoEncontradaException - 0.002 s
+[INFO] |  +-- [OK] un mock sin configurar devuelve «vacío»: Optional.empty - 0.004 s
+[INFO] |  +-- [OK] consultar el saldo devuelve el de la cuenta que da el repositorio - 0.003 s
+[INFO] |  +-- [OK] si el repositorio no responde, su excepción sale tal cual - 0.005 s
+[INFO] |  '-- [OK] un retiro normal baja el saldo - 0.003 s
+[INFO] +--MP-3 · Verificar interacciones: qué se llamó, cuántas veces y en qué orden - 0.036 s
+[INFO] |  +-- [OK] el SMS dice el monto y el saldo que queda - 0.006 s
+[INFO] |  +-- [OK] un retiro guarda la cuenta una vez y manda un SMS a esa cuenta - 0.004 s
+[INFO] |  +-- [OK] con una cuenta que no existe, ni antifraude ni SMS - 0.002 s
+[INFO] |  +-- [OK] si el SMS falla, el retiro ya se hizo y no se deshace - 0.005 s
+[INFO] |  +-- [OK] el orden: antifraude, después guardar, después SMS - 0.005 s
+[INFO] |  +-- [OK] una operación sospechosa no cambia la cuenta, no la guarda y no manda SMS - 0.003 s
+[INFO] |  '-- [OK] si la cuenta no tiene saldo, no se guarda ni se manda SMS - 0.003 s
+[INFO] +--MP-4 · Lo mismo, con @Mock y @Captor - 0.034 s
+[INFO] |  +-- [OK] una operación sospechosa se rechaza y la cuenta no cambia - 0.023 s
+[INFO] |  +-- [OK] el SMS dice el monto y el saldo que queda - 0.004 s
+[INFO] |  '-- [OK] con una cuenta que no existe, ni antifraude ni SMS - 0.003 s
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   RelojTest.usaLaFechaDelReloj:46 Unexpected exception type thrown, expected: <com.academia.banco.LimiteDiarioExcedidoException> but was: <java.lang.NullPointerException>
+[INFO] 
+[ERROR] Tests run: 25, Failures: 1, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.841 s
+[INFO] Finished at: 2026-10-01T14:58:03-06:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.6:test (default-test) on project cuenta-bancaria-mockito: There are test failures.
+[ERROR] 
+[ERROR] See /home/marti/cuenta-bancaria-mockito/target/surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+
+===== DETALLE de cada clase con fallas (target/surefire-reports) =====
+-------------------------------------------------------------------------------
+Test set: com.academia.banco.RelojTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.027 s <<< FAILURE! -- in com.academia.banco.RelojTest
+com.academia.banco.RelojTest.usaLaFechaDelReloj -- Time elapsed: 0.021 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception type thrown, expected: <com.academia.banco.LimiteDiarioExcedidoException> but was: <java.lang.NullPointerException>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:67)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3128)
+	at com.academia.banco.RelojTest.usaLaFechaDelReloj(RelojTest.java:46)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+Caused by: java.lang.NullPointerException: Cannot invoke "java.math.BigDecimal.add(java.math.BigDecimal)" because "yaRetirado" is null
+	at com.academia.banco.CajeroAutomatico.validarLimiteDiario(CajeroAutomatico.java:76)
+	at com.academia.banco.CajeroAutomatico.retirar(CajeroAutomatico.java:50)
+	at com.academia.banco.RelojTest.lambda$usaLaFechaDelReloj$0(RelojTest.java:46)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
+	... 6 more
+
